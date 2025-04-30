@@ -60,28 +60,29 @@ module "ecs_cluster" {
 module "rds" {
   source = "./modules/rds"
 
-  environment        = var.environment
-  vpc_id            = module.vpc.vpc_id
-  db_name           = var.db_name
-  db_username       = var.db_username
-  db_instance_class = var.db_instance_class
-  db_subnet_group_name = var.db_subnet_group_name
-  allowed_security_groups = [module.ecs_service.ecs_tasks_sg_id]
-  tags              = var.tags
+  environment            = var.environment
+  db_name               = var.db_name
+  db_username           = var.db_username
+  db_instance_class     = var.db_instance_class
+  db_subnet_group_name  = "${var.environment}-db-subnet-group"
+  private_subnet_ids    = module.vpc.private_subnet_ids
+  vpc_id                = module.vpc.vpc_id
+  allowed_security_groups = [module.ecs_cluster.ecs_tasks_sg_id]
+  tags                  = var.tags
 }
 
-module "elasticache" {
-  source = "./modules/elasticache"
+# module "elasticache" {
+#   source = "./modules/elasticache"
 
-  environment        = var.environment
-  vpc_id            = module.vpc.vpc_id
-  cache_name        = var.cache_name
-  cache_node_type   = var.cache_node_type
-  subnet_group_name = var.subnet_group_name
-  subnet_ids        = module.vpc.private_subnet_ids
-  allowed_security_groups = [module.ecs_service.ecs_tasks_sg_id]
-  tags              = var.tags
-}
+#   environment        = var.environment
+#   vpc_id            = module.vpc.vpc_id
+#   cache_name        = var.cache_name
+#   cache_node_type   = var.cache_node_type
+#   subnet_group_name = var.subnet_group_name
+#   subnet_ids        = module.vpc.private_subnet_ids
+#   allowed_security_groups = []
+#   tags              = var.tags
+# }
 
 module "ecs_service" {
   source = "./modules/ecs"
@@ -100,7 +101,7 @@ module "ecs_service" {
   db_name           = var.db_name
   db_username       = var.db_username
   db_password_arn   = module.rds.db_master_user_secret_arn
-  redis_endpoint    = module.elasticache.redis_endpoint
+  # redis_endpoint    = module.elasticache.redis_endpoint
   private_subnets   = module.vpc.private_subnet_ids
   alb_security_group_id = module.alb.security_group_id
   target_group_arn  = module.alb.target_group_arn
@@ -121,7 +122,7 @@ locals {
   
   service_infrastructure = [
     module.rds,
-    module.elasticache,
+    # module.elasticache,
     module.ecs_service
   ]
 } 

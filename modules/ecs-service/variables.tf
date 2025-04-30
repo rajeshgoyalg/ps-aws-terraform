@@ -88,10 +88,10 @@ variable "db_password_arn" {
   type        = string
 }
 
-variable "redis_endpoint" {
-  description = "Endpoint of the Redis cluster"
-  type        = string
-}
+# variable "redis_endpoint" {
+#   description = "Endpoint of the Redis cluster"
+#   type        = string
+# }
 
 variable "tags" {
   description = "Tags to apply to resources"

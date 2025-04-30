@@ -2,7 +2,7 @@ locals {
   services = {
     demoapp1 = {
       db_instance_class = "db.t3.micro"
-      cache_node_type   = "cache.t3.micro"
+      # cache_node_type   = "cache.t3.micro"
       cpu              = 256
       memory           = 512
       max_capacity     = 4
@@ -16,7 +16,7 @@ locals {
     }
     demoapp2 = {
       db_instance_class = "db.t3.micro"
-      cache_node_type   = "cache.t3.micro"
+      # cache_node_type   = "cache.t3.micro"
       cpu              = 256
       memory           = 512
       max_capacity     = 4

@@ -27,17 +27,17 @@ module "rds" {
 }
 
 # ElastiCache Module
-module "elasticache" {
-  source = "../modules/elasticache"
+# module "elasticache" {
+#   source = "../modules/elasticache"
 
-  environment        = var.environment
-  cache_name         = var.cache_name
-  node_type          = var.cache_node_type
-  subnet_group_name  = var.cache_subnet_group_name
-  vpc_id            = var.vpc_id
-  allowed_security_groups = var.allowed_security_groups
-  tags              = var.tags
-}
+#   environment        = var.environment
+#   cache_name         = var.cache_name
+#   node_type          = var.cache_node_type
+#   subnet_group_name  = var.cache_subnet_group_name
+#   vpc_id            = var.vpc_id
+#   allowed_security_groups = var.allowed_security_groups
+#   tags              = var.tags
+# }
 
 # ECS Service Module
 module "ecs_service" {
@@ -57,6 +57,6 @@ module "ecs_service" {
   db_name          = var.db_name
   db_username      = var.db_username
   db_password_arn  = module.rds.db_instance_password_arn
-  redis_endpoint   = module.elasticache.cache_cluster_endpoint
+  # redis_endpoint   = module.elasticache.cache_cluster_endpoint
   tags             = var.tags
 } 

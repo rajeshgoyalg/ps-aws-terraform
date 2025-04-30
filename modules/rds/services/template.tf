@@ -5,9 +5,9 @@ module "SERVICE_NAME_db" {
   # Database Configuration
   identifier = "${var.environment}-SERVICE_NAME"
   engine     = "postgres"
-  engine_version = "14.7"
-  family     = "postgres14"
-  major_engine_version = "14"
+  engine_version = "17.2"
+  family     = "postgres17"
+  major_engine_version = "17"
   instance_class = "db.t3.micro"
   allocated_storage = 20
   max_allocated_storage = 100
@@ -17,7 +17,7 @@ module "SERVICE_NAME_db" {
   port     = "5432"
 
   # Network Configuration
-  multi_az               = true
+  multi_az               = false
   db_subnet_group_name   = var.db_subnet_group_name
   vpc_security_group_ids = [aws_security_group.SERVICE_NAME_db.id]
 

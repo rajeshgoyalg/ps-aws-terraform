@@ -63,10 +63,10 @@ variable "db_password_arn" {
   type        = string
 }
 
-variable "redis_endpoint" {
-  description = "ElastiCache Redis endpoint"
-  type        = string
-}
+# variable "redis_endpoint" {
+#   description = "ElastiCache Redis endpoint"
+#   type        = string
+# }
 
 variable "tags" {
   description = "Tags to apply to resources"

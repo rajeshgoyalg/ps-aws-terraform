@@ -71,7 +71,7 @@ module "ecs" {
   memory               = 512
   desired_count        = 1
   db_endpoint          = module.rds.db_endpoint
-  redis_endpoint       = module.elasticache.redis_endpoint
+  # redis_endpoint       = module.elasticache.redis_endpoint
   ecr_repository_url   = module.ecr.repository_url
   alb_security_group_id = module.alb.alb_security_group_id
   target_group_arn     = module.alb.target_group_arn

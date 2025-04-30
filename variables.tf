@@ -10,7 +10,7 @@ variable "environments" {
     public_subnets  = list(string)
     private_subnets = list(string)
     db_instance_class = string
-    cache_node_type   = string
+    # cache_node_type   = string
     fargate_capacity_providers = map(object({
       default_capacity_provider_strategy = object({
         weight = number
@@ -113,21 +113,21 @@ variable "db_subnet_group_name" {
 }
 
 # ElastiCache Variables
-variable "cache_node_type" {
-  description = "Instance type for ElastiCache"
-  type        = string
-}
+# variable "cache_node_type" {
+#   description = "Instance type for ElastiCache"
+#   type        = string
+# }
 
-variable "subnet_group_name" {
-  description = "Name of the ElastiCache subnet group"
-  type        = string
-}
+# variable "subnet_group_name" {
+#   description = "Name of the ElastiCache subnet group"
+#   type        = string
+# }
 
-variable "cache_name" {
-  description = "Name of the cache cluster"
-  type        = string
-  default     = "shared_cache"
-}
+# variable "cache_name" {
+#   description = "Name of the cache cluster"
+#   type        = string
+#   default     = "shared_cache"
+# }
 
 # ECS Service Variables
 variable "service_name" {

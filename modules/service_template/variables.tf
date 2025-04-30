@@ -12,7 +12,7 @@ variable "config" {
   description = "Service configuration"
   type = object({
     db_instance_class = string
-    cache_node_type   = string
+    # cache_node_type   = string
     cpu              = number
     memory           = number
     max_capacity     = number

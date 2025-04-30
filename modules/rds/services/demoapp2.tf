@@ -5,10 +5,10 @@ module "demoapp2_db" {
   # Database Configuration
   identifier = "${var.environment}-demoapp2"
   engine     = "postgres"
-  engine_version = "14.7"
-  family     = "postgres14"
-  major_engine_version = "14"
-  instance_class = "db.t3.micro"
+  engine_version = "17.2"
+  family     = "postgres17"
+  major_engine_version = "17"
+  instance_class = "db.t4g.micro"
   allocated_storage = 20
   max_allocated_storage = 100
 
@@ -17,7 +17,7 @@ module "demoapp2_db" {
   port     = "5432"
 
   # Network Configuration
-  multi_az               = true
+  multi_az               = false
   db_subnet_group_name   = var.db_subnet_group_name
   vpc_security_group_ids = [aws_security_group.demoapp2_db.id]
 

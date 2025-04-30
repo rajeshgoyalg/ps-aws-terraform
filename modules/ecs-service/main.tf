@@ -32,10 +32,10 @@ resource "aws_ecs_task_definition" "main" {
           name  = "DB_USER"
           value = var.db_username
         },
-        {
-          name  = "REDIS_HOST"
-          value = var.redis_endpoint
-        }
+        # {
+        #   name  = "REDIS_HOST"
+        #   value = var.redis_endpoint
+        # }
       ]
       secrets = [
         {

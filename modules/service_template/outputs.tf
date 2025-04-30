@@ -18,10 +18,10 @@ output "db_password_arn" {
   value       = module.rds.db_instance_password_arn
 }
 
-output "redis_endpoint" {
-  description = "ElastiCache cluster endpoint"
-  value       = module.elasticache.cache_cluster_endpoint
-}
+# output "redis_endpoint" {
+#   description = "ElastiCache cluster endpoint"
+#   value       = module.elasticache.cache_cluster_endpoint
+# }
 
 output "target_group_arn" {
   description = "ARN of the ALB target group"

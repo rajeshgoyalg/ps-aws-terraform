@@ -24,6 +24,11 @@ variable "db_subnet_group_name" {
   type        = string
 }
 
+variable "private_subnet_ids" {
+  description = "List of private subnet IDs for the DB subnet group"
+  type        = list(string)
+}
+
 variable "vpc_id" {
   description = "ID of the VPC"
   type        = string

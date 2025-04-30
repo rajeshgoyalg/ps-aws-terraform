@@ -20,19 +20,19 @@ module "rds" {
 }
 
 # ElastiCache Cluster
-module "elasticache" {
-  source = "../elasticache"
+# module "elasticache" {
+#   source = "../elasticache"
 
-  environment = local.environment
-  cache_name = local.service_name
-  node_type = var.config.cache_node_type
-  subnet_group_name = var.elasticache_subnet_group_name
-  vpc_id = var.vpc_id
-  allowed_security_groups = [var.ecs_tasks_sg_id]
-  tags = merge(var.tags, {
-    Service = local.service_name
-  })
-}
+#   environment = local.environment
+#   cache_name = local.service_name
+#   node_type = var.config.cache_node_type
+#   subnet_group_name = var.elasticache_subnet_group_name
+#   vpc_id = var.vpc_id
+#   allowed_security_groups = [var.ecs_tasks_sg_id]
+#   tags = merge(var.tags, {
+#     Service = local.service_name
+#   })
+# }
 
 # ECS Task Definition
 resource "aws_ecs_task_definition" "service" {

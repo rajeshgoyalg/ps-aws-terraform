@@ -81,10 +81,10 @@ resource "aws_ecs_task_definition" "service" {
           name  = "DB_ENDPOINT"
           value = var.db_endpoint
         },
-        {
-          name  = "REDIS_ENDPOINT"
-          value = var.redis_endpoint
-        }
+        # {
+        #   name  = "REDIS_ENDPOINT"
+        #   value = var.redis_endpoint
+        # }
       ]
       logConfiguration = {
         logDriver = "awslogs"

@@ -69,7 +69,7 @@ output "rds_endpoint" {
 }
 
 # ElastiCache Outputs
-output "redis_endpoint" {
-  description = "Endpoint of the Redis cluster"
-  value       = module.elasticache.redis_endpoint
-} 
+# output "redis_endpoint" {
+#   description = "Endpoint of the Redis cluster"
+#   value       = module.elasticache.redis_endpoint
+# } 
