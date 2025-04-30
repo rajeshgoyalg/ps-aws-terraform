@@ -104,6 +104,8 @@ module "ecs_service" {
   private_subnets   = module.vpc.private_subnet_ids
   alb_security_group_id = module.alb.security_group_id
   target_group_arn  = module.alb.target_group_arn
+  create_security_group = false
+  ecs_tasks_sg_id   = module.ecs_cluster.ecs_tasks_sg_id
   tags              = var.tags
 }
 
