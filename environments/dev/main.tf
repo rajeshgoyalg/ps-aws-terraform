@@ -2,6 +2,7 @@ module "vpc" {
   source = "../../modules/vpc"
 
   environment     = var.environment
+  region          = var.region
   vpc_name        = var.vpc_name
   cidr            = var.cidr
   azs             = var.azs
