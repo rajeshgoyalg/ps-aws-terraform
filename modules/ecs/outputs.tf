@@ -1,21 +1,21 @@
 output "cluster_id" {
   description = "The ID of the ECS cluster"
-  value       = aws_ecs_cluster.main.id
+  value       = data.aws_ecs_cluster.main.id
 }
 
 output "cluster_name" {
   description = "The name of the ECS cluster"
-  value       = aws_ecs_cluster.main.name
+  value       = var.cluster_name
 }
 
 output "cluster_arn" {
   description = "The ARN of the ECS cluster"
-  value       = aws_ecs_cluster.main.arn
+  value       = data.aws_ecs_cluster.main.arn
 }
 
 output "ecs_tasks_sg_id" {
   description = "The ID of the ECS tasks security group"
-  value       = aws_security_group.ecs_tasks.id
+  value       = var.create_security_group ? aws_security_group.ecs_tasks[0].id : var.ecs_tasks_sg_id
 }
 
 output "task_definition_arn" {
