@@ -1,3 +1,5 @@
+data "aws_region" "current" {}
+
 module "db" {
   source  = "terraform-aws-modules/rds/aws"
   version = "~> 6.0"
@@ -16,6 +18,8 @@ module "db" {
   db_name  = var.db_name
   username = var.db_username
   port     = "5432"
+
+  manage_master_user_password = true
 
   multi_az               = true
   db_subnet_group_name   = var.db_subnet_group_name

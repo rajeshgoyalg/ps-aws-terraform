@@ -6,4 +6,4 @@ terraform {
     dynamodb_table = "putty-scene-terraform-locks"
     encrypt        = true
   }
-} 
+}

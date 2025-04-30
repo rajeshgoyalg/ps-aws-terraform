@@ -57,4 +57,23 @@ module "ecs_cluster" {
   vpc_id            = module.vpc.vpc_id
   fargate_capacity_providers = var.fargate_capacity_providers
   tags              = var.tags
+}
+
+module "ecs" {
+  source = "../modules/ecs"
+
+  environment           = var.environment
+  cluster_name         = var.cluster_name
+  vpc_id               = module.vpc.vpc_id
+  private_subnets      = module.vpc.private_subnets
+  container_port       = 3000
+  cpu                  = 256
+  memory               = 512
+  desired_count        = 1
+  db_endpoint          = module.rds.db_endpoint
+  redis_endpoint       = module.elasticache.redis_endpoint
+  ecr_repository_url   = module.ecr.repository_url
+  alb_security_group_id = module.alb.alb_security_group_id
+  target_group_arn     = module.alb.target_group_arn
+  tags                 = var.tags
 } 

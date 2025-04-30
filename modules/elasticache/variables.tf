@@ -1,17 +1,16 @@
 variable "environment" {
-  description = "Deployment environment (e.g., dev, prod)"
+  description = "Environment name (e.g., dev, prod)"
   type        = string
 }
 
 variable "cache_name" {
-  description = "Name of the cache cluster"
+  description = "Name of the ElastiCache cluster"
   type        = string
 }
 
 variable "cache_node_type" {
-  description = "Instance type for the cache nodes"
+  description = "Instance type for the ElastiCache nodes"
   type        = string
-  default     = "cache.t3.micro"
 }
 
 variable "node_type" {
@@ -25,13 +24,18 @@ variable "subnet_group_name" {
   type        = string
 }
 
+variable "subnet_ids" {
+  description = "List of subnet IDs for the ElastiCache cluster"
+  type        = list(string)
+}
+
 variable "vpc_id" {
   description = "ID of the VPC"
   type        = string
 }
 
 variable "allowed_security_groups" {
-  description = "List of security group IDs allowed to access the cache"
+  description = "List of security group IDs allowed to access the ElastiCache cluster"
   type        = list(string)
 }
 

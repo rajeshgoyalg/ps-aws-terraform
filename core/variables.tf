@@ -9,7 +9,7 @@ variable "region" {
 }
 
 variable "vpc_cidr" {
-  description = "CIDR block for VPC"
+  description = "CIDR block for the VPC"
   type        = string
 }
 
@@ -38,6 +38,12 @@ variable "alb_name" {
   type        = string
 }
 
+variable "certificate_arn" {
+  description = "ARN of the ACM certificate for HTTPS"
+  type        = string
+  default     = ""
+}
+
 variable "repository_name" {
   description = "Name of the ECR repository"
   type        = string
@@ -48,35 +54,66 @@ variable "cluster_name" {
   type        = string
 }
 
-variable "certificate_arn" {
-  description = "ARN of the ACM certificate for HTTPS"
-  type        = string
-  default     = ""
+variable "fargate_capacity_providers" {
+  description = "Fargate capacity providers configuration"
+  type = list(object({
+    name = string
+    weight = number
+  }))
+  default = [
+    {
+      name   = "FARGATE"
+      weight = 1
+    },
+    {
+      name   = "FARGATE_SPOT"
+      weight = 1
+    }
+  ]
 }
 
-variable "fargate_capacity_providers" {
-  description = "Map of Fargate capacity providers and their configurations"
-  type = map(object({
-    default_capacity_provider_strategy = object({
-      weight = number
-    })
-  }))
-  default = {
-    FARGATE = {
-      default_capacity_provider_strategy = {
-        weight = 1
-      }
-    }
-    FARGATE_SPOT = {
-      default_capacity_provider_strategy = {
-        weight = 0
-      }
-    }
-  }
+variable "container_port" {
+  description = "Port on which the container listens"
+  type        = number
+}
+
+variable "cpu" {
+  description = "CPU units for the task"
+  type        = number
+}
+
+variable "memory" {
+  description = "Memory in MiB for the task"
+  type        = number
+}
+
+variable "desired_count" {
+  description = "Number of tasks to run"
+  type        = number
+}
+
+variable "db_name" {
+  description = "Name of the database"
+  type        = string
+}
+
+variable "db_username" {
+  description = "Username for the database"
+  type        = string
+}
+
+variable "db_password_arn" {
+  description = "ARN of the secret containing the database password"
+  type        = string
+}
+
+variable "service_name" {
+  description = "Name of the ECS service"
+  type        = string
 }
 
 variable "tags" {
-  description = "Tags to apply to all resources"
+  description = "Tags to apply to resources"
   type        = map(string)
   default     = {}
 } 

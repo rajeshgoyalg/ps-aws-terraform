@@ -1,30 +1,30 @@
 variable "environment" {
-  description = "Deployment environment (e.g., dev, prod)"
+  description = "Environment name (e.g., dev, prod)"
   type        = string
 }
 
 variable "service_name" {
-  description = "Name of the service to deploy"
+  description = "Name of the ECS service"
   type        = string
 }
 
 variable "container_port" {
-  description = "Port on which the container is listening"
+  description = "Port on which the container listens"
   type        = number
 }
 
 variable "desired_count" {
-  description = "Number of instances of the task definition to place and keep running"
+  description = "Number of tasks to run"
   type        = number
 }
 
 variable "cpu" {
-  description = "Number of cpu units used by the task"
+  description = "CPU units for the task"
   type        = number
 }
 
 variable "memory" {
-  description = "Amount (in MiB) of memory used by the task"
+  description = "Memory in MiB for the task"
   type        = number
 }
 
@@ -44,7 +44,7 @@ variable "region" {
 }
 
 variable "db_endpoint" {
-  description = "Endpoint of the RDS instance"
+  description = "RDS endpoint"
   type        = string
 }
 
@@ -54,7 +54,7 @@ variable "db_name" {
 }
 
 variable "db_username" {
-  description = "Username for the master DB user"
+  description = "Username for the database"
   type        = string
 }
 
@@ -64,7 +64,7 @@ variable "db_password_arn" {
 }
 
 variable "redis_endpoint" {
-  description = "Endpoint of the Redis cluster"
+  description = "ElastiCache Redis endpoint"
   type        = string
 }
 
@@ -100,8 +100,29 @@ variable "environment_vars" {
   default = []
 }
 
-variable "image_tag" {
-  description = "Tag of the container image to use"
+variable "create_security_group" {
+  description = "Whether to create a new security group for ECS tasks"
+  type        = bool
+  default     = true
+}
+
+variable "ecs_tasks_sg_id" {
+  description = "ID of an existing security group for ECS tasks"
   type        = string
-  default     = "latest"
+  default     = ""
+}
+
+variable "alb_security_group_id" {
+  description = "ID of the ALB security group"
+  type        = string
+}
+
+variable "private_subnets" {
+  description = "List of private subnet IDs"
+  type        = list(string)
+}
+
+variable "target_group_arn" {
+  description = "ARN of the target group"
+  type        = string
 }
