@@ -18,11 +18,11 @@ variable "private_subnet_ids" {
   type        = list(string)
 }
 
-variable "certificate_arn" {
-  description = "ARN of the ACM certificate for HTTPS"
-  type        = string
-  default     = ""
-}
+# variable "certificate_arn" {
+#   description = "ARN of the ACM certificate for HTTPS"
+#   type        = string
+#   default     = ""
+# }
 
 variable "tags" {
   description = "Tags to apply to all resources"

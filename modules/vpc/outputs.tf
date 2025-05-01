@@ -17,3 +17,14 @@ output "default_security_group_id" {
   description = "The ID of the default security group"
   value       = module.vpc.default_security_group_id
 }
+
+output "vpc_cidr_block" {
+  description = "The CIDR block of the VPC"
+  value       = module.vpc.vpc_cidr_block
+}
+
+output "private_route_table_ids" {
+  description = "List of private route table IDs"
+  value       = module.vpc.private_route_table_ids
+}
+

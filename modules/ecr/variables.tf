@@ -14,19 +14,25 @@ variable "create_lifecycle_policy" {
   default     = false
 }
 
+variable "image_retention_count" {
+  description = "Number of images to keep in the repository"
+  type        = number
+  default     = 1000
+}
+
 variable "image_tag_mutability" {
   description = "The tag mutability setting for the repository."
   type        = string
-  default     = "MUTABLE"
+  default     = "IMMUTABLE"
 }
 
-variable "scan_on_push" {
+variable "repository_image_scan_on_push" {
   description = "Indicates whether images are scanned after being pushed to the repository."
   type        = bool
   default     = true
 }
 
-variable "encryption_type" {
+variable "repository_encryption_type" {
   description = "The encryption type for the repository."
   type        = string
   default     = "AES256"

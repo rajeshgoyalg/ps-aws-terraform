@@ -21,7 +21,7 @@ module "vpc" {
   private_subnet_tags = {
     "aws:ecs:cluster" = "true"
     "Environment"     = var.environment
-    "Tier"           = "private"
+    "Tier"            = "private"
   }
 
   tags = merge(var.tags, {
@@ -29,47 +29,59 @@ module "vpc" {
   })
 }
 
-# VPC Endpoints
-resource "aws_vpc_endpoint" "ecr_api" {
-  vpc_id            = module.vpc.vpc_id
-  service_name      = "com.amazonaws.${var.region}.ecr.api"
-  vpc_endpoint_type = "Interface"
-  subnet_ids        = module.vpc.private_subnets
-  security_group_ids = [aws_security_group.vpc_endpoints.id]
+# resource "aws_security_group" "vpc_endpoints" {
+#   name        = "${var.environment}-vpc-endpoints-sg"
+#   description = "${var.environment} - Security group for VPC endpoints"
+#   vpc_id      = module.vpc.vpc_id
+
+#   ingress {
+#     from_port   = 443
+#     to_port     = 443
+#     protocol    = "tcp"
+#     cidr_blocks = [module.vpc.vpc_cidr_block]
+#   }
+
+#   tags = merge(var.tags, {
+#     Name = "${var.environment}-vpc-endpoints-sg"
+#   })
+# }
+
+# # VPC Endpoints
+# resource "aws_vpc_endpoint" "ecr_api" {
+#   vpc_id             = module.vpc.vpc_id
+#   service_name       = "com.amazonaws.${var.region}.ecr.api"
+#   vpc_endpoint_type  = "Interface"
+#   subnet_ids         = module.vpc.private_subnets
+#   security_group_ids = [aws_security_group.vpc_endpoints.id]
   
-  private_dns_enabled = true
-}
+#   private_dns_enabled = true
 
-resource "aws_vpc_endpoint" "ecr_dkr" {
-  vpc_id            = module.vpc.vpc_id
-  service_name      = "com.amazonaws.${var.region}.ecr.dkr"
-  vpc_endpoint_type = "Interface"
-  subnet_ids        = module.vpc.private_subnets
-  security_group_ids = [aws_security_group.vpc_endpoints.id]
+#   tags = merge(var.tags, {
+#     Name = "${var.environment}-ecr-api"
+#   })
+# }
+
+# resource "aws_vpc_endpoint" "ecr_dkr" {
+#   vpc_id             = module.vpc.vpc_id
+#   service_name       = "com.amazonaws.${var.region}.ecr.dkr"
+#   vpc_endpoint_type  = "Interface"
+#   subnet_ids         = module.vpc.private_subnets
+#   security_group_ids = [aws_security_group.vpc_endpoints.id]
   
-  private_dns_enabled = true
-}
+#   private_dns_enabled = true
 
-resource "aws_vpc_endpoint" "s3" {
-  vpc_id            = module.vpc.vpc_id
-  service_name      = "com.amazonaws.${var.region}.s3"
-  vpc_endpoint_type = "Gateway"
-  route_table_ids   = module.vpc.private_route_table_ids
-}
+#   tags = merge(var.tags, {
+#     Name = "${var.environment}-ecr-dkr"
+#   })
+# }
 
-resource "aws_security_group" "vpc_endpoints" {
-  name        = "${var.environment}-vpc-endpoints-sg"
-  description = "Security group for VPC endpoints"
-  vpc_id      = module.vpc.vpc_id
+# resource "aws_vpc_endpoint" "s3" {
+#   vpc_id            = module.vpc.vpc_id
+#   service_name      = "com.amazonaws.${var.region}.s3"
+#   vpc_endpoint_type = "Gateway"
+#   route_table_ids   = module.vpc.private_route_table_ids
 
-  ingress {
-    from_port   = 443
-    to_port     = 443
-    protocol    = "tcp"
-    cidr_blocks = [module.vpc.vpc_cidr_block]
-  }
-
-  tags = merge(var.tags, {
-    Name = "${var.environment}-vpc-endpoints-sg"
-  })
-}
+#   tags = merge(var.tags, {
+#     Name = "${var.environment}-s3"
+#   })
+# }

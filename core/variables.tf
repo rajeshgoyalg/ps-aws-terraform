@@ -55,21 +55,24 @@ variable "cluster_name" {
 }
 
 variable "fargate_capacity_providers" {
-  description = "Fargate capacity providers configuration"
-  type = list(object({
-    name = string
-    weight = number
+  description = "Map of Fargate capacity providers and their configurations"
+  type = map(object({
+    default_capacity_provider_strategy = object({
+      weight = number
+    })
   }))
-  default = [
-    {
-      name   = "FARGATE"
-      weight = 1
-    },
-    {
-      name   = "FARGATE_SPOT"
-      weight = 1
+  default = {
+    FARGATE = {
+      default_capacity_provider_strategy = {
+        weight = 1
+      }
     }
-  ]
+    FARGATE_SPOT = {
+      default_capacity_provider_strategy = {
+        weight = 0
+      }
+    }
+  }
 }
 
 variable "container_port" {

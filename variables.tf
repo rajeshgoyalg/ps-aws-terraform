@@ -19,9 +19,11 @@ variable "environments" {
   }))
 }
 
+# vpc variables
 variable "region" {
   description = "AWS region"
   type        = string
+  default     = "ap-south-1"
 }
 
 variable "vpc_cidr" {
@@ -49,25 +51,82 @@ variable "azs" {
   type        = list(string)
 }
 
+# variable "ingress_rules" {
+#   description = "List of ingress rules for the security group"
+#   type = list(object({
+#     from_port   = number
+#     to_port     = number
+#     protocol    = string
+#     cidr_blocks = list(string)
+#     description = string
+#   }))
+#   default = []
+# }
+
+# variable "ingress_rules" {
+#   description = "List of ingress rules for the security group"
+#   type        = list(string)
+# }
+
+# variable "egress_rules" {
+#   description = "List of egress rules for the security group"
+#   type = list(object({
+#     from_port   = number
+#     to_port     = number
+#     protocol    = string
+#     cidr_blocks = list(string)
+#     description = string
+#   }))
+#   default = []
+# }
+
+# variable "egress_rules" {
+#   description = "List of egress rules for the security group"
+#   type        = list(string)
+# }
+
+# variable "ingress_with_cidr_blocks" {
+#   description = "List of ingress rules with CIDR blocks for the security group"
+#   type = list(object({
+#     from_port   = number
+#     to_port     = number
+#     protocol    = string
+#     cidr_blocks = string
+#     description = string
+#   }))
+#   default = []
+# }
+
 variable "alb_name" {
   description = "Name of the Application Load Balancer"
   type        = string
 }
+
+# variable "certificate_arn" {
+#   description = "ARN of the ACM certificate for HTTPS"
+#   type        = string
+#   default     = ""
+# }
 
 variable "repository_name" {
   description = "Name of the ECR repository"
   type        = string
 }
 
-variable "cluster_name" {
-  description = "Name of the ECS cluster"
+variable "image_tag_mutability" {
+  description = "The tag mutability setting for the repository."
   type        = string
 }
 
-variable "certificate_arn" {
-  description = "ARN of the ACM certificate for HTTPS"
+variable "repository_image_scan_on_push" {
+  description = "Indicates whether images are scanned after being pushed to the repository."
+  type        = bool
+  default     = true
+}
+
+variable "cluster_name" {
+  description = "Name of the ECS cluster"
   type        = string
-  default     = ""
 }
 
 variable "fargate_capacity_providers" {
@@ -91,6 +150,28 @@ variable "fargate_capacity_providers" {
   }
 }
 
+variable "capacity_provider_weights" {
+  description = "Weightages for FARGATE and FARGATE_SPOT capacity providers (must sum to 100)"
+  type = object({
+    fargate      = number
+    fargate_spot = number
+  })
+  default = {
+    fargate      = 50
+    fargate_spot = 50
+  }
+
+  validation {
+    condition     = var.capacity_provider_weights.fargate >= 0 && var.capacity_provider_weights.fargate_spot >= 0
+    error_message = "Capacity provider weights must be non-negative."
+  }
+
+  validation {
+    condition     = var.capacity_provider_weights.fargate + var.capacity_provider_weights.fargate_spot == 100
+    error_message = "Capacity provider weights must sum to 100."
+  }
+}
+
 # RDS Variables
 variable "db_instance_class" {
   description = "Instance class for RDS"
@@ -111,23 +192,6 @@ variable "db_subnet_group_name" {
   description = "Name of the DB subnet group"
   type        = string
 }
-
-# ElastiCache Variables
-# variable "cache_node_type" {
-#   description = "Instance type for ElastiCache"
-#   type        = string
-# }
-
-# variable "subnet_group_name" {
-#   description = "Name of the ElastiCache subnet group"
-#   type        = string
-# }
-
-# variable "cache_name" {
-#   description = "Name of the cache cluster"
-#   type        = string
-#   default     = "shared_cache"
-# }
 
 # ECS Service Variables
 variable "service_name" {
@@ -157,32 +221,26 @@ variable "desired_count" {
   type        = number
 }
 
-variable "tags" {
-  description = "Tags to apply to all resources"
-  type        = map(string)
-  default     = {}
-}
-
 variable "create_lifecycle_policy" {
   description = "Indicates whether a lifecycle policy should be created for the repository."
   type        = bool
   default     = false
 }
 
-variable "image_tag_mutability" {
-  description = "The tag mutability setting for the repository."
-  type        = string
-  default     = "MUTABLE"
+variable "image_retention_count" {
+  description = "Number of images to keep in the repository"
+  type        = number
+  default     = 1000
 }
 
-variable "scan_on_push" {
-  description = "Indicates whether images are scanned after being pushed to the repository."
-  type        = bool
-  default     = true
-}
-
-variable "encryption_type" {
+variable "repository_encryption_type" {
   description = "The encryption type for the repository."
   type        = string
   default     = "AES256"
+}
+
+variable "tags" {
+  description = "Tags to apply to all resources"
+  type        = map(string)
+  default     = {}
 }

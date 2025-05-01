@@ -15,15 +15,15 @@ output "public_subnet_ids" {
 }
 
 # ALB Outputs
-output "alb_arn" {
-  description = "ARN of the ALB"
-  value       = module.alb.alb_arn
-}
+# output "alb_arn" {
+#   description = "ARN of the ALB"
+#   value       = module.alb.alb_arn
+# }
 
-output "alb_dns_name" {
-  description = "DNS name of the ALB"
-  value       = module.alb.alb_dns_name
-}
+# output "alb_dns_name" {
+#   description = "DNS name of the ALB"
+#   value       = module.alb.alb_dns_name
+# }
 
 output "alb_target_group_arn" {
   description = "ARN of the default target group"

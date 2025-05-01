@@ -18,7 +18,7 @@ module "ecr" {
   environment         = var.environment
   repository_name     = var.repository_name
   image_tag_mutability = "MUTABLE"
-  scan_on_push        = true
+  repository_image_scan_on_push        = true
   encryption_type     = "AES256"
   tags                = var.tags
   create_lifecycle_policy = var.create_lifecycle_policy

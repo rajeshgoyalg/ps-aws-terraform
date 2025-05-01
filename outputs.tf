@@ -14,59 +14,69 @@ output "public_subnet_ids" {
   value       = module.vpc.public_subnet_ids
 }
 
+output "vpc_cidr_block" {
+  description = "The CIDR block of the VPC"
+  value       = module.vpc.vpc_cidr_block
+}
+
+output "private_route_table_ids" {
+  description = "List of private route table IDs"
+  value       = module.vpc.private_route_table_ids
+}
+
 # ALB Outputs
-output "alb_arn" {
-  description = "ARN of the ALB"
-  value       = module.alb.alb_arn
-}
+# output "alb_arn" {
+#   description = "ARN of the ALB"
+#   value       = module.alb.alb_arn
+# }
 
-output "alb_dns_name" {
-  description = "DNS name of the ALB"
-  value       = module.alb.alb_dns_name
-}
+# output "alb_dns_name" {
+#   description = "DNS name of the ALB"
+#   value       = module.alb.alb_dns_name
+# }
 
-output "alb_zone_id" {
-  description = "Zone ID of the ALB"
-  value       = module.alb.alb_zone_id
-}
+# output "alb_zone_id" {
+#   description = "Zone ID of the ALB"
+#   value       = module.alb.alb_zone_id
+# }
 
-output "alb_target_group_arn" {
-  description = "ARN of the default target group"
-  value       = module.alb.target_group_arn
-}
+# output "alb_target_group_arn" {
+#   description = "ARN of the default target group"
+#   value       = module.alb.target_group_arn
+# }
 
 # ECR Outputs
-output "ecr_repository_url" {
-  description = "URL of the ECR repository"
-  value       = module.ecr.repository_url
-}
+# output "ecr_repository_url" {
+#   description = "URL of the ECR repository"
+#   value       = module.ecr.repository_url
+# }
 
 # ECS Outputs
-output "ecs_cluster_id" {
-  description = "ID of the ECS cluster"
-  value       = module.ecs_cluster.cluster_id
-}
+# output "ecs_cluster_id" {
+#   description = "ID of the ECS cluster"
+#   value       = module.ecs_cluster.cluster_id
+# }
 
-output "ecs_cluster_name" {
-  description = "Name of the ECS cluster"
-  value       = module.ecs_cluster.cluster_name
-}
+# output "ecs_cluster_name" {
+#   description = "Name of the ECS cluster"
+#   value       = module.ecs_cluster.cluster_name
+# }
 
-output "ecs_service_task_definition_arn" {
-  description = "ARN of the ECS service task definition"
-  value       = module.ecs_service.task_definition_arn
-}
+# output "ecs_service_task_definition_arn" {
+#   description = "ARN of the ECS service task definition"
+#   value       = module.ecs_service.task_definition_arn
+# }
 
-output "ecs_service_task_execution_role_arn" {
-  description = "ARN of the ECS service task execution role"
-  value       = module.ecs_service.task_execution_role_arn
-}
+# output "ecs_service_task_execution_role_arn" {
+#   description = "ARN of the ECS service task execution role"
+#   value       = module.ecs_service.task_execution_role_arn
+# }
 
 # RDS Outputs
-output "rds_endpoint" {
-  description = "Endpoint of the RDS instance"
-  value       = module.rds.db_instance_endpoint
-}
+# output "rds_endpoint" {
+#   description = "Endpoint of the RDS instance"
+#   value       = module.rds.db_instance_endpoint
+# }
 
 # ElastiCache Outputs
 # output "redis_endpoint" {
