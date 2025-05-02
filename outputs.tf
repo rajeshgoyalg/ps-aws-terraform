@@ -24,6 +24,26 @@ output "private_route_table_ids" {
   value       = module.vpc.private_route_table_ids
 }
 
+# output "container_definition" {
+#   description = "The name of the container definition"
+#   value       = module.ngnixdemos-hello.container_definition
+# }
+
+output "ecs_cluster_arn" {
+  description = "The ARN of the ECS cluster"
+  value       = module.ecs_cluster.ecs_cluster_arn
+}
+
+output "alb_arn" {
+  description = "ARN of the ALB"
+  value       = module.new_alb.alb_arn
+}
+
+output "alb_security_group_id" {
+  description = "ID of the security group for the ALB"
+  value       = module.new_alb.alb_security_group_id
+}
+
 # ALB Outputs
 # output "alb_arn" {
 #   description = "ARN of the ALB"

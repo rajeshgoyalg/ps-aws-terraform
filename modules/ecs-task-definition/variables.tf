@@ -1,10 +1,5 @@
-variable "subnet_ids" {
-  description = "List of subnet IDs"
-  type        = list(string)
-}
-
 variable "environment" {
-  description = "The deployment environment (e.g., prod, dev, staging)"
+  description = "The environment to deploy to"
   type        = string
 }
 
@@ -13,8 +8,18 @@ variable "cluster_arn" {
   type        = string
 }
 
-variable "target_group_arn" {
-  description = "The ARN of the target group"
+variable "subnet_ids" {
+  description = "The IDs of the subnets"
+  type        = list(string)
+}
+
+variable "vpc_id" {
+  description = "The ID of the VPC"
+  type        = string
+}
+
+variable "alb_arn" {
+  description = "The ARN of the ALB"
   type        = string
 }
 
